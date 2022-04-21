@@ -3,8 +3,8 @@ class MenusController < ApplicationController
     @menus = Menu.get_all_menus
     @menus
   end
-  # def show
-  #   @menu = Menu.get_menu(params[:id])
-  #   @menu
-  # end
+  def show
+    @menu = Menu.get_menu(params[:id])
+    @menu
+  end
 end
