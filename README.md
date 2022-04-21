@@ -1,3 +1,7 @@
+# Asumption
+
+- Customer have non unique email address, if owner want to send email to customer, than API will query the unique email
+
 # Rails on Replit
 
 This is a template to get you started with Rails on Replit. It's ready to go so you can just hit run and start coding!
@@ -18,7 +22,7 @@ Start every command with `bundle exec` so that it runs in the context of the ins
 
 ## Database
 
-SQLite would work in development but we don't recommend running it in production. Instead look into using the built-in [Replit database](http://docs.replit.com/misc/database). Otherwise you are welcome to connect databases from your favorite provider. 
+SQLite would work in development but we don't recommend running it in production. Instead look into using the built-in [Replit database](http://docs.replit.com/misc/database). Otherwise you are welcome to connect databases from your favorite provider.
 
 ## Help
 
