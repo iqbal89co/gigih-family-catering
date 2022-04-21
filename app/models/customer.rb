@@ -1,4 +1,4 @@
 class Customer < ApplicationRecord
     validates :name, presence: true
-    validates :email, presence: true, :format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/ }
+    validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP, message: 'invalid email address provided' }
 end
