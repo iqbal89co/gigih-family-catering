@@ -52,12 +52,18 @@ RSpec.describe MenusController do
     describe 'POST#create' do
         context 'with valid attributes' do
             it 'saves the new menu in the database' do
+                menu = FactoryBot.create(:menu)
+                category = FactoryBot.create(:category)
+                menu_category = FactoryBot.create(:menu_category, menu_id: menu.id, category_id: category.id)
                 expect{
-                    post :create, params: { menu: attributes_for(:menu) }
+                    post :create, params: { menu: menu.attributes, menu_category: menu_category.attributes }
                 }.to change(Menu, :count).by(1)
             end
             it 'redirects to menus#show' do
-                post :create, params: { menu: attributes_for(:menu) }
+                menu = FactoryBot.create(:menu)
+                category = FactoryBot.create(:category)
+                menu_category = FactoryBot.create(:menu_category, menu_id: menu.id, category_id: category.id)
+                post :create, params: { menu: menu.attributes, menu_category: menu_category.attributes }
                 expect(response).to redirect_to(menu_path(assigns[:menu]))
             end
         end
