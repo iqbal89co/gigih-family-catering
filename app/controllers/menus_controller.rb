@@ -7,4 +7,7 @@ class MenusController < ApplicationController
     @menu = Menu.get_menu(params[:id])
     @menu
   end
+  def new
+    @menu = Menu.new
+  end
 end
