@@ -30,6 +30,8 @@ ActiveRecord::Schema.define(version: 2022_04_21_103917) do
     t.integer "category_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["category_id"], name: "index_menu_categories_on_category_id"
+    t.index ["menu_id"], name: "index_menu_categories_on_menu_id"
   end
 
   create_table "menus", force: :cascade do |t|
@@ -42,8 +44,10 @@ ActiveRecord::Schema.define(version: 2022_04_21_103917) do
 
   create_table "orders", force: :cascade do |t|
     t.string "status"
+    t.integer "customer_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["customer_id"], name: "index_orders_on_customer_id"
   end
 
 end
