@@ -10,4 +10,8 @@ class MenusController < ApplicationController
   def new
     @menu = Menu.new
   end
+  def edit
+    @menu = Menu.get_menu(params[:id])
+    @menu
+  end
 end
