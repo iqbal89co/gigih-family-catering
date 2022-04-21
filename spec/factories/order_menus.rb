@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :order_menu do
     order_id { 1 }
-    name { Menu.first.name }
-    price { Menu.first.price }
-    qty { 2 }
+    name { Faker::Food.dish }
+    price { 15000.0 }
+    qty { 1 }
   end
 end
