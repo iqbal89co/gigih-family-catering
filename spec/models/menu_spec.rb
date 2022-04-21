@@ -13,4 +13,7 @@ RSpec.describe Menu, type: :model do
     menu2.valid?
     expect(menu2.errors[:name]).to include("has already been taken")
   end
+  it "is invalid with price less than 0.01" do
+    expect(FactoryBot.build(:menu, price: 0.001)).to_not be_valid
+  end
 end
