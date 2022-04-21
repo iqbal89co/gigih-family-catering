@@ -7,4 +7,10 @@ RSpec.describe Menu, type: :model do
 
     expect(menu).to be_valid
   end
+  it "is invalid with a duplicate name" do
+    menu1 = FactoryBot.create(:menu, name: 'Nasi Uduk')
+    menu2 = FactoryBot.build(:menu, name: 'Nasi Uduk')
+    menu2.valid?
+    expect(menu2.errors[:name]).to include("has already been taken")
+  end
 end
