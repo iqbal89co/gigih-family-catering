@@ -5,9 +5,15 @@ FactoryBot.define do
     price { 10000.0 }
   end
 
-  factory :invalid_menu, parent: :menu do
+  factory :nil_menu, parent: :menu do
     name { nil }
     description { nil }
+    price { 10000.0 }
+  end
+
+  factory :invalid_description_menu, parent: :menu do
+    name { Faker::Food.dish }
+    description { (0...200).map { ('a'..'z').to_a[rand(26)] }.join }
     price { 10000.0 }
   end
 end

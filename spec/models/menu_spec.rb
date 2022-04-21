@@ -16,4 +16,7 @@ RSpec.describe Menu, type: :model do
   it "is invalid with price less than 0.01" do
     expect(FactoryBot.build(:menu, price: 0.001)).to_not be_valid
   end
+  it "is invalid with description length more than 150" do
+    expect(FactoryBot.build(:invalid_description_menu)).to_not be_valid
+  end
 end
