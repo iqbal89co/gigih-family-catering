@@ -1,7 +1,8 @@
 FactoryBot.define do
   factory :order_menu do
-    name { "MyString" }
-    price { 1.5 }
-    qty { 1 }
+    order_id { 1 }
+    name { Menu.first.name }
+    price { Menu.first.price }
+    qty { 2 }
   end
 end
