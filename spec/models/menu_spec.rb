@@ -2,11 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Menu, type: :model do
   it "is valid with a name and a description" do
-    menu = Menu.new(
-      name: "Nasi Uduk",
-      description: "Betawi style steamed rice cooked in coconut milk. Delicious!",
-      price: 15000.0
-    )
+    menu = FactoryBot.create(:menu)
+    # menu_category = FactoryBot.create(:menu_category, menu_id: menu.id)
 
     expect(menu).to be_valid
   end
