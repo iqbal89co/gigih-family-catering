@@ -13,4 +13,10 @@ RSpec.describe Customer, type: :model do
     customer = FactoryBot.build(:invalid_email_customer)
     expect(customer).to_not be_valid
   end
+  it "is invalid with a duplicate email" do
+    customer1 = FactoryBot.create(:customer, email: 'iqbal@gmail.com')
+    customer2 = FactoryBot.build(:customer, email: 'iqbal@gmail.com')
+    customer2.valid?
+    expect(customer2.errors[:email]).to include("has already been taken")
+  end
 end

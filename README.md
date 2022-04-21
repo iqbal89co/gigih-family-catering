@@ -1,6 +1,6 @@
 # Asumption
 
-- Customer have non unique email address, if owner want to send email to customer, than API will query the unique email
+- Customer table have unique email address
 
 # Rails on Replit
 
