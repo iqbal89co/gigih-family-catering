@@ -1,4 +1,51 @@
 class OrderMenuController < ApplicationController
+
+  def index
+    @order_menus = OrderMenu.get_all(params[:order_id])
+    respond_to do |format|
+      format.html {
+        @order_menus
+      }
+      format.json {
+        render :json => @order_menus
+      }
+    end
+  end
+  
+  def edit
+    @order_menus = OrderMenu.get_order_menu(params[:id])
+    respond_to do |format|
+      format.html {
+        @order_menus
+      }
+      format.json {
+        render :json => @order_menus
+      }
+    end
+  end
+
+  def update
+    order_menus = OrderMenu.get_order_menu(params[:id])
+    
+    respond_to do |format|
+      if order_menus.update(order_menu_params)
+        format.html {
+          redirect_to menu_url(order_menus), notice: "Mwnu for order was successfully updated."
+        }
+        format.json {
+          render :show, status: :updated, location: order_menus
+        }
+      else
+        format.html {
+          render :edit, status: :unprocessable_entity
+        }
+        format.json {
+          render json: order_menus.errors, status: :unprocessable_entity
+        }
+      end
+    end
+  end
+  
   def create
     order_menu = OrderMenu.new(order_menu_params)
     respond_to do |format|

@@ -92,7 +92,26 @@ class OrdersController < ApplicationController
     end
   end
 
-  
+  def destroy
+    order = Order.get_order(params[:id])
+    respond_to do |format|
+      if order.destroy
+        format.html {
+          redirect_to menus_url, notice: "Order was successfully deleted."
+        }
+        format.json {
+          render :index, status: :destroyed, location: order
+        }
+      else
+        format.html {
+          render :show, status: :unprocessable_entity
+        }
+        format.json {
+          render json: order.errors, status: :unprocessable_entity
+        }
+      end
+    end
+  end
 
   private
   def order_params

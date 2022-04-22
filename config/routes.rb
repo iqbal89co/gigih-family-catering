@@ -9,4 +9,5 @@ Rails.application.routes.draw do
   # root "articles#index"
   resources :menus
   resources :orders
+  resources :order_menu
 end

@@ -2,6 +2,8 @@
 
 - Customer table have unique email address
 - Making order first than add order_menu to orders
+- github repo : https://github.com/iqbal89co/gigih-family-catering
+- Kebanyakan commit awal di branch local-development
 
 # Rails on Replit
 
