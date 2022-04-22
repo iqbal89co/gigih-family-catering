@@ -38,8 +38,6 @@ class MenusController < ApplicationController
     end
   end
   def create
-    # menu = Menu.create(menu_params)
-    # @menu_category = MenuCategory.new(JSON.parse(params[:menu_category]))
     menu = Menu.new(menu_params)
     respond_to do |format|
       if menu.save
@@ -52,6 +50,48 @@ class MenusController < ApplicationController
       else
         format.html {
           render :new, status: :unprocessable_entity
+        }
+        format.json {
+          render json: menu.errors, status: :unprocessable_entity
+        }
+      end
+    end
+  end
+
+  def update
+    menu = Menu.get_menu(params[:id])
+    respond_to do |format|
+      if menu.update(menu_params)
+        format.html {
+          redirect_to menu_url(menu), notice: "Menu was successfully updated."
+        }
+        format.json {
+          render :show, status: :updated, location: menu
+        }
+      else
+        format.html {
+          render :edit, status: :unprocessable_entity
+        }
+        format.json {
+          render json: menu.errors, status: :unprocessable_entity
+        }
+      end
+    end
+  end
+
+  def destroy
+    menu = Menu.get_menu(params[:id])
+    respond_to do |format|
+      if menu.destroy
+        format.html {
+          redirect_to menus_url, notice: "Menu was successfully deleted."
+        }
+        format.json {
+          render :index, status: :destroyed, location: menu
+        }
+      else
+        format.html {
+          render :show, status: :unprocessable_entity
         }
         format.json {
           render json: menu.errors, status: :unprocessable_entity

@@ -1,6 +1,7 @@
 # Asumption
 
 - Customer table have unique email address
+- Making order first than add order_menu to orders
 
 # Rails on Replit
 
