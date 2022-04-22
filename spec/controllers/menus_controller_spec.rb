@@ -4,10 +4,10 @@ RSpec.describe MenusController do
     describe 'GET#index' do
         context 'all menus' do
             it "populates an array of all menus" do
-                menu1 = create(:menu)
-                menu2 = create(:menu)
+                nasi_uduk = create(:menu, name: "Nasi Bakar")
+                kerak_telor = create(:menu, name: "Kerak Telor")
                 get :index
-                expect(assigns(:menus)).to match_array([menu1, menu2])
+                expect(assigns(:menus)).to match_array([nasi_uduk, kerak_telor])
             end
             it "renders the :index template" do
                 get :index
@@ -18,7 +18,7 @@ RSpec.describe MenusController do
     describe 'GET#show' do
         it 'assigns the requested menu to @menu' do
             menu = create(:menu)
-            get :show, params: {id: menu}
+            get :show, params: { id: menu }
             expect(assigns(:menu)).to eq menu
         end
         it 'renders the :show template' do
@@ -51,20 +51,30 @@ RSpec.describe MenusController do
     end
     describe 'POST#create' do
         context 'with valid attributes' do
+            # valid arguments
             it 'saves the new menu in the database' do
-                menu = FactoryBot.create(:menu)
-                category = FactoryBot.create(:category)
-                menu_category = FactoryBot.create(:menu_category, menu_id: menu.id, category_id: category.id)
+                menu = create(:menu)
                 expect{
-                    post :create, params: { menu: menu.attributes, menu_category: menu_category.attributes }
+                    post :create, params: { menu: attributes_for(:menu) }
                 }.to change(Menu, :count).by(1)
             end
             it 'redirects to menus#show' do
-                menu = FactoryBot.create(:menu)
-                category = FactoryBot.create(:category)
-                menu_category = FactoryBot.create(:menu_category, menu_id: menu.id, category_id: category.id)
-                post :create, params: { menu: menu.attributes, menu_category: menu_category.attributes }
-                expect(response).to redirect_to(menu_path(assigns[:menu]))
+                menu = create(:menu)
+                post :create, params: { menu: attributes_for(:menu) }
+                expect(response).to redirect_to(menu_path(assigns[menu]))
+            end
+            # invalid arguments
+            context "with invalid attributes" do
+                it "does not save the new menu in the database" do
+                    expect{
+                        post :create, params: { menu: attributes_for(:nil_menu) }
+                    }.not_to change(Menu, :count)
+                end
+
+                it "re-renders the :new template" do
+                    post :create, params: { menu: attributes_for(:nil_menu) }
+                    expect(response).to render_template :new
+                end
             end
         end
     end

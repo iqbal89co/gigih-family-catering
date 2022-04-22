@@ -1,3 +1,4 @@
+require 'json'
 class MenusController < ApplicationController
   def index
     @menus = Menu.get_all_menus
@@ -36,22 +37,23 @@ class MenusController < ApplicationController
     end
   end
   def create
-    @menu = Menu.new(menu_params)
-    # @menu_category = MenuCategory.new(menu_category_params)
+    # menu = Menu.create(menu_params)
+    # @menu_category = MenuCategory.new(JSON.parse(params[:menu_category]))
+    menu = Menu.create(menu_params)
     respond_to do |format|
-      if @menu.save
+      if menu
         format.html {
-          redirect_to menu_url(@menu), notice: "Menu was successfully created."
+          redirect_to menu_url(menu), notice: "Menu was successfully created."
         }
         format.json {
-          render :show, status: :created, location: @menu
+          render :show, status: :created, location: menu
         }
       else
         format.html {
           render :new, status: :unprocessable_entity
         }
         format.json {
-          render json: @menu.errors, status: :unprocessable_entity
+          render json: menu.errors, status: :unprocessable_entity
         }
       end
     end
@@ -62,7 +64,7 @@ class MenusController < ApplicationController
   def menu_params
     params.require(:menu).permit(:name, :description, :price)
   end
-  # def menu_category_params
-  #   params.require(:menu_category).permit(:category_id, :menu_id)
-  # end
+  def menu_category_params
+    JSON.parse(params).require(:menu_category).permit(:category_id, :menu_id)
+  end
 end
