@@ -3,5 +3,6 @@
   <%= form.text_field :name, placeholder: "name" %>
   <%= form.text_field :description, placeholder: "description" %>
   <%= form.text_field :price, placeholder: "price" %>
+  <%= form.collection_select :category_id, Category.all, :id, :name  %>
   <%= form.submit %>
 <% end %>

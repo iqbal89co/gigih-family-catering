@@ -49,9 +49,10 @@ RSpec.describe MenusController do
             expect(response).to render_template :edit
         end
     end
+  
     describe 'POST#create' do
+        # valid arguments
         context 'with valid attributes' do
-            # valid arguments
             it 'saves the new menu in the database' do
                 menu = create(:menu)
                 expect{
@@ -59,22 +60,21 @@ RSpec.describe MenusController do
                 }.to change(Menu, :count).by(1)
             end
             it 'redirects to menus#show' do
-                menu = create(:menu)
                 post :create, params: { menu: attributes_for(:menu) }
-                expect(response).to redirect_to(menu_path(assigns[menu]))
+        expect(response).to redirect_to(menu_path(assigns[:menu]))
             end
-            # invalid arguments
-            context "with invalid attributes" do
-                it "does not save the new menu in the database" do
-                    expect{
-                        post :create, params: { menu: attributes_for(:nil_menu) }
-                    }.not_to change(Menu, :count)
-                end
-
-                it "re-renders the :new template" do
+        end
+        # invalid arguments
+        context "with invalid attributes" do
+            it "does not save the new menu in the database" do
+                expect{
                     post :create, params: { menu: attributes_for(:nil_menu) }
-                    expect(response).to render_template :new
-                end
+                }.not_to change(Menu, :count)
+            end
+
+            it "re-renders the :new template" do
+                post :create, params: { menu: attributes_for(:nil_menu) }
+                expect(response).to render_template :new
             end
         end
     end

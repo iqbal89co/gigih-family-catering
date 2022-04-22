@@ -24,6 +24,7 @@ class MenusController < ApplicationController
   end
   def new
     @menu = Menu.new
+    @category = Category.all
   end
   def edit
     @menu = Menu.get_menu(params[:id])
@@ -39,9 +40,9 @@ class MenusController < ApplicationController
   def create
     # menu = Menu.create(menu_params)
     # @menu_category = MenuCategory.new(JSON.parse(params[:menu_category]))
-    menu = Menu.create(menu_params)
+    menu = Menu.new(menu_params)
     respond_to do |format|
-      if menu
+      if menu.save
         format.html {
           redirect_to menu_url(menu), notice: "Menu was successfully created."
         }
@@ -62,9 +63,6 @@ class MenusController < ApplicationController
   private
 
   def menu_params
-    params.require(:menu).permit(:name, :description, :price)
-  end
-  def menu_category_params
-    JSON.parse(params).require(:menu_category).permit(:category_id, :menu_id)
+    params.require(:menu).permit(:name, :description, :price, :category_id)
   end
 end
